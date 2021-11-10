@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
@@ -18,12 +18,14 @@ export const Home = () => {
 
 	const handleToggleTaskDone = (id: number) => {
 		const updatedTasks = tasks.map((task) => (task.id === id ? { ...task, done: !task.done } : task));
-
 		setTasks(updatedTasks);
 	};
 
 	const handleRemoveTask = (id: number) => {
-		setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+		Alert.alert('Remover Item', 'Tem certeza que você deseja remover esse item?', [
+			{ text:'Não', style: 'default' },
+			{ text:'Sim', onPress: () => setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id)), style: 'destructive'}
+		])
 	};
 
 	return (
