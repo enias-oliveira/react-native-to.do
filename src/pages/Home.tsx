@@ -28,13 +28,18 @@ export const Home = () => {
 		])
 	};
 
+	const handleEditTask = (taskId: number, taskNewTitle: string) => {
+		const updatedTasks = tasks.map((task) => (task.id === taskId ? { ...task, title: taskNewTitle } : task));
+		setTasks(updatedTasks);
+	};
+
 	return (
 		<View style={styles.container}>
 			<Header tasksCounter={tasks.length} />
 
 			<TodoInput addTask={handleAddTask} />
 
-			<TasksList tasks={tasks} toggleTaskDone={handleToggleTaskDone} removeTask={handleRemoveTask} />
+			<TasksList tasks={tasks} toggleTaskDone={handleToggleTaskDone} removeTask={handleRemoveTask} editTask={handleEditTask}/>
 		</View>
 	);
 };
